@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Guides & Frameworks — MAP2302</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="home" href="../index.html">← Study Hub</a>
+  <span class="crumbs">Study Guides · Quiz Frameworks</span>
+</nav>
+
+<div class="wrap narrow prose">
+
+  <header class="masthead">
+    <p class="eyebrow">Study Guide · Master Reference</p>
+    <h1 class="title">Quiz Guides &amp;<br>Frameworks</h1>
+    <p class="subtitle">Prerequisite knowledge, method recaps, and step-by-step frameworks for solving Quiz 1 and Quiz 2 problems.</p>
+  </header>
+
+  <div class="toc"><div class="toc-scroll">
+    <a href="#quiz1">Quiz 1 Guide</a>
+    <a href="#quiz2">Quiz 2 Guide</a>
+  </div></div>
+
+  <h2 id="quiz1">Quiz 1: Classification, Solutions &amp; IVPs</h2>
+  
+  <h3>Prerequisite Topics to Review</h3>
+  <ul>
+    <li><b>Calculus Rules:</b> Mastery of product, quotient, and chain rules. Familiarity with partial differentiation.</li>
+    <li><b>Algebraic Manipulation:</b> Factoring polynomials, exponent rules, and solving characteristic equations.</li>
+    <li><b>Domain &amp; Continuity:</b> Identifying domain restrictions (e.g., division by zero, negative square roots) in two-variable functions.</li>
+  </ul>
+
+  <h3>Method Recaps</h3>
+  <p><b>Classification:</b> Determining the algebraic structure of the differential equation (DE) to select the correct solving tool.</p>
+  <p><b>Solution Verification:</b> Proving a given function satisfies a DE by computing its derivatives and substituting them into the original equation to verify it creates a true identity for all $x$.</p>
+  <p><b>Existence and Uniqueness (E&amp;U):</b> Determining if an Initial Value Problem (IVP) is guaranteed to have exactly one solution without actually solving it, relying on the continuity of the right-hand side function and its partial derivative.</p>
+
+  <div class="box method">
+    <h4>Framework 1: Differential Equation Classification</h4>
+    <p>Use this ordered checklist to classify any DE.</p>
+    <ol>
+      <li><b>Type:</b> Count the independent variables (what you differentiate <i>with respect to</i>). 
+        <br>→ 1 variable = <b>ODE</b>. 
+        <br>→ 2+ variables = <b>PDE</b>.</li>
+      <li><b>Order:</b> Locate the highest derivative present in the entire equation. 
+        <br>→ The number of that highest derivative is the <b>Order</b>.</li>
+      <li><b>Linearity:</b> Check the dependent variable (usually $y$) and all of its derivatives. 
+        <br>→ If $y$ and its derivatives are to the 1st power, are not multiplied together, and do not sit inside other functions (like $\sin(y)$ or $e^y$), it is <b>Linear</b>. Otherwise, it is <b>Nonlinear</b>.</li>
+    </ol>
+  </div>
+
+  <div class="box method">
+    <h4>Framework 2: Existence &amp; Uniqueness Test</h4>
+    <p>Use this algorithm to evaluate IVPs of the form $y' = f(x,y), \quad y(x_0) = y_0$.</p>
+    <ol>
+      <li><b>Isolate:</b> Rewrite the ODE to isolate the first derivative: $y' = f(x,y)$.</li>
+      <li><b>Test $f(x,y)$:</b> Determine if $f(x,y)$ is continuous at and immediately around the initial point $(x_0, y_0)$. Check for zero denominators or invalid function arguments.</li>
+      <li><b>Differentiate:</b> Compute the partial derivative with respect to the dependent variable: $\frac{\partial f}{\partial y}$.</li>
+      <li><b>Test $\frac{\partial f}{\partial y}$:</b> Determine if the partial derivative is continuous at and around $(x_0, y_0)$.</li>
+      <li><b>Conclude:</b> If <i>both</i> are continuous near $(x_0, y_0)$, a unique solution exists. If either fails, uniqueness (or existence) is not mathematically guaranteed.</li>
+    </ol>
+  </div>
+
+  <hr style="margin: 60px 0; border: 0; border-top: 1px solid var(--line);">
+
+  <h2 id="quiz2">Quiz 2: First-Order ODEs</h2>
+
+  <h3>Prerequisite Topics to Review</h3>
+  <ul>
+    <li><b>Integration Techniques:</b> Integration by parts, $u$-substitution, integration of rational functions, and recognizing non-elementary integrals (like $\int e^{-x^2}dx$).</li>
+    <li><b>Exponential &amp; Logarithmic Properties:</b> Manipulating base $e$ and natural logarithms ($\ln$) to isolate variables.</li>
+    <li><b>Physics/Engineering Translation:</b> Translating physical laws (Newton's Second Law, Newton's Law of Cooling, mass/brine balance) into rate-of-change differential equations.</li>
+  </ul>
+
+  <h3>Method Recaps</h3>
+  <p><b>Separation of Variables:</b> Isolating all $y$ terms with $dy$ on one side and $x$ terms with $dx$ on the other, allowing direct integration of both sides.</p>
+  <p><b>Integrating Factors:</b> Multiplying a non-separable linear equation by a specially computed factor $\mu(x)$ to force the left side to become the exact derivative of a product, making it integrable.</p>
+  <p><b>Applied Modeling:</b> Setting up an IVP by identifying the rate of change ($\frac{dy}{dt}$), the forcing functions (inflow/outflow, ambient temperature), and the initial state ($y(0)$).</p>
+
+  <div class="box method">
+    <h4>Framework 3: First-Order Method Selection</h4>
+    <p>Apply this hierarchy to determine the most efficient solving method.</p>
+    <ol>
+      <li><b>Separable?</b> Can it be factored into $y' = g(x)h(y)$?<br>→ <i>Yes:</i> Separate and integrate: $\int \frac{dy}{h(y)} = \int g(x)dx$.</li>
+      <li><b>Linear?</b> Can it be written as $y' + P(x)y = Q(x)$?<br>→ <i>Yes:</i> Use the Integrating Factor Framework (Framework 4).</li>
+      <li><b>Exact?</b> Written as $M\,dx + N\,dy = 0$. Does $\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}$?<br>→ <i>Yes:</i> Integrate $M$ with respect to $x$, then find $g(y)$ using $N$.</li>
+    </ol>
+  </div>
+
+  <div class="box method">
+    <h4>Framework 4: Integrating Factor Algorithm</h4>
+    <p>For linear equations that are not strictly separable.</p>
+    <ol>
+      <li><b>Standardize:</b> Divide the equation by the leading coefficient to achieve standard form: $y' + P(x)y = Q(x)$.</li>
+      <li><b>Compute $\mu(x)$:</b> Calculate the integrating factor: $\mu(x) = e^{\int P(x)dx}$. (You can set the constant of integration to zero here).</li>
+      <li><b>Multiply:</b> Multiply the entire standard form DE by $\mu(x)$. The left side automatically collapses to the product rule: $(\mu(x)y)' = \mu(x)Q(x)$.</li>
+      <li><b>Integrate:</b> Integrate both sides with respect to $x$: $\mu(x)y = \int \mu(x)Q(x)dx + C$. <i>(Ensure $+ C$ is explicitly added right now!)</i></li>
+      <li><b>Solve:</b> Divide by $\mu(x)$ to isolate $y$. Apply initial conditions to solve for $C$.</li>
+    </ol>
+  </div>
+
+  <div class="box method">
+    <h4>Framework 5: Mixture/Compartment Model Setup</h4>
+    <p>For fluid mass-balance problems (e.g., salt in a tank). Ensure all units match before starting.</p>
+    <ol>
+      <li><b>Variables:</b> Let $A(t)$ be the mass of the solute. Let $V(t)$ be the volume of the fluid.</li>
+      <li><b>Rate In:</b> Calculate input rate = (Concentration In) $\times$ (Flow Rate In).</li>
+      <li><b>Rate Out:</b> Calculate output rate = $\left(\frac{A(t)}{V(t)}\right) \times$ (Flow Rate Out). 
+        <br><i>Note: $V(t) = V_0 + (\text{Flow In} - \text{Flow Out})t$.</i></li>
+      <li><b>Construct DE:</b> Form the equation: $\frac{dA}{dt} = \text{Rate In} - \text{Rate Out}$.</li>
+      <li><b>Solve:</b> This setup almost always results in a linear 1st-order DE. Use Framework 4 to solve for $A(t)$.</li>
+    </ol>
+  </div>
+
+  <footer>
+    Study Guides &amp; Frameworks · MAP2302 Study Hub<br>
+    <a href="../index.html">← back to Study Hub</a>
+  </footer>
+
+</div>
+
+<script>
+window.addEventListener('load',()=>{
+  if(window.renderMathInElement){
+    renderMathInElement(document.body,{
+      delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+      throwOnError:false
+    });
+  }
+});
+</script>
+</body>
+</html>
