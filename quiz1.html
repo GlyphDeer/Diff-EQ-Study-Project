@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAP2302 — Quiz 1 Practice</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+
+<style>
+:root{
+  --ink:#11140f; --paper:#f4f1e8; --paper-2:#ece7d8; --line:#c9c1ab;
+  --accent:#1f6f54; --accent-soft:#dfeae3; --warn:#9a5b1d; --warn-soft:#f0e3d0;
+  --good:#1f6f54; --bad:#9c2c2c; --bad-soft:#f1dada; --shadow:rgba(17,20,15,.12);
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --serif:"Spectral","Iowan Old Style",Georgia,serif;
+}
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:radial-gradient(circle at 12% 8%, #fbf9f1 0, transparent 40%),radial-gradient(circle at 88% 92%, #efeadb 0, transparent 45%),var(--paper);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");}
+.wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:0 20px 120px;}
+header.masthead{border-bottom:3px double var(--ink);padding:30px 0 22px;margin-bottom:8px;}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);margin:0 0 10px;}
+h1.title{font-family:var(--serif);font-weight:700;font-size:clamp(38px,7vw,68px);line-height:.96;margin:0;letter-spacing:-.02em;}
+.subtitle{font-style:italic;color:#4a4a40;margin:14px 0 0;font-size:19px;}
+.meta-row{display:flex;flex-wrap:wrap;gap:18px;margin-top:22px;font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:#5b5b50;}
+.meta-row span{display:inline-flex;align-items:center;gap:6px;}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;}
+.scoreboard{position:sticky;top:0;z-index:20;margin:0 -20px 36px;padding:14px 20px;background:rgba(244,241,232,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.score-stats{font-family:var(--mono);font-size:13px;letter-spacing:.04em;display:flex;gap:22px;flex-wrap:wrap;}
+.score-stats b{color:var(--accent);font-weight:600;}
+.score-bar{flex:1;min-width:120px;height:6px;background:var(--paper-2);border:1px solid var(--line);border-radius:3px;overflow:hidden;}
+.score-bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .5s ease;}
+.btn-reset{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;background:none;border:1px solid var(--ink);color:var(--ink);padding:7px 13px;cursor:pointer;border-radius:2px;transition:.18s;}
+.btn-reset:hover{background:var(--ink);color:var(--paper);}
+.q{background:#fbfaf4;border:1px solid var(--line);border-radius:4px;margin:0 0 26px;box-shadow:0 1px 0 var(--shadow);overflow:hidden;}
+.q-head{display:flex;gap:16px;align-items:flex-start;padding:22px 24px 6px;}
+.q-num{font-family:var(--mono);font-weight:600;font-size:14px;color:var(--paper);background:var(--ink);min-width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.q.correct .q-num{background:var(--good);}
+.q.incorrect .q-num{background:var(--bad);}
+.q-body{padding:0 24px 20px;}
+.q-prompt{margin:6px 0 16px;font-size:18.5px;}
+.q-prompt .sub{display:block;margin:4px 0 0 18px;}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--warn);border:1px solid var(--warn);border-radius:2px;padding:1px 6px;margin-left:8px;vertical-align:middle;}
+.tf-group{display:flex;gap:10px;flex-wrap:wrap;}
+.tf-btn,.mc-btn{font-family:var(--mono);font-size:13px;letter-spacing:.06em;background:#fff;border:1px solid var(--line);color:var(--ink);padding:8px 16px;cursor:pointer;border-radius:3px;transition:.15s;text-align:left;}
+.tf-btn:hover,.mc-btn:hover{border-color:var(--accent);background:var(--accent-soft);}
+.tf-btn.sel,.mc-btn.sel{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.mc-group{display:flex;flex-direction:column;gap:8px;}
+textarea,input[type=text]{width:100%;font-family:var(--mono);font-size:14px;line-height:1.55;background:#fff;border:1px solid var(--line);border-radius:3px;padding:11px 13px;color:var(--ink);resize:vertical;}
+textarea{min-height:78px;}
+textarea:focus,input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft);}
+.field-label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#777;margin:0 0 6px;}
+.q-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center;}
+.act{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;padding:9px 16px;cursor:pointer;border-radius:3px;transition:.16s;border:1px solid;}
+.act-check{background:var(--accent);color:#fff;border-color:var(--accent);}
+.act-check:hover{background:#185b45;}
+.act-hint{background:none;color:var(--warn);border-color:var(--warn);}
+.act-hint:hover{background:var(--warn-soft);}
+.act-show{background:none;color:var(--ink);border-color:var(--line);}
+.act-show:hover{background:var(--paper-2);}
+.act:disabled{opacity:.4;cursor:not-allowed;}
+.panel{margin-top:14px;padding:14px 16px;border-radius:3px;font-size:16px;border-left:3px solid;display:none;animation:fade .3s ease;}
+.panel.show{display:block;}
+@keyframes fade{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:none;}}
+.panel-hint{background:var(--warn-soft);border-color:var(--warn);}
+.panel-ans{background:var(--accent-soft);border-color:var(--accent);}
+.panel-result{background:#fff;border-color:var(--line);}
+.panel h4{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px;}
+.panel-hint h4{color:var(--warn);}
+.panel-ans h4{color:var(--accent);}
+.result-correct{color:var(--good);font-weight:600;}
+.result-incorrect{color:var(--bad);font-weight:600;}
+.selfgrade{margin-top:12px;font-size:15px;}
+.sg-btn{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;padding:7px 14px;margin-right:8px;cursor:pointer;border-radius:3px;border:1px solid var(--line);background:#fff;transition:.15s;}
+.sg-got{color:var(--good);} .sg-got:hover,.sg-got.sel{background:var(--good);color:#fff;border-color:var(--good);}
+.sg-miss{color:var(--bad);} .sg-miss:hover,.sg-miss.sel{background:var(--bad);color:#fff;border-color:var(--bad);}
+footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:#888;text-align:center;line-height:2;}
+.kbd{font-family:var(--mono);background:var(--paper-2);border:1px solid var(--line);border-radius:3px;padding:1px 6px;font-size:12px;}
+</style>
+</head>
+<body>
+
+<nav style="position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:860px;margin:0 auto;padding:18px 20px 0;flex-wrap:wrap;font-family:var(--mono);">
+  <a href="../index.html" style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);text-decoration:none;">← Study Hub</a>
+  <span style="font-size:11px;letter-spacing:.08em;color:#8a8576;">Quiz 1 · Classification, Solutions &amp; IVPs</span>
+</nav>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Differential Equations · MAP2302</p>
+    <h1 class="title">Quiz&nbsp;1<br>Practice&nbsp;Set</h1>
+    <p class="subtitle">Classifying equations, verifying solutions, and the existence-uniqueness theorem.</p>
+    <div class="meta-row">
+      <span><i class="dot"></i> 9 problems</span>
+      <span><i class="dot"></i> Self-grading</span>
+      <span><i class="dot"></i> Hints available</span>
+      <span><i class="dot"></i> Progress saved locally</span>
+    </div>
+  </header>
+
+  <div class="scoreboard">
+    <div class="score-stats">
+      <span>Graded <b id="st-graded">0</b>/<span id="st-total">0</span></span>
+      <span>Correct <b id="st-correct">0</b></span>
+      <span>Score <b id="st-pct">0%</b></span>
+    </div>
+    <div class="score-bar"><i id="score-fill"></i></div>
+    <button class="btn-reset" id="reset">Reset all</button>
+  </div>
+
+  <main id="quiz"></main>
+
+  <footer>
+    MAP2302 Quiz 1 self-test &middot; built for practice<br>
+    Math rendered with KaTeX &middot; progress stored in your browser only<br>
+    Tip: classify on paper first, then use <span class="kbd">Show answer</span> to self-check.
+  </footer>
+</div>
+
+<script>
+/* types: 'mc' multiple choice auto, 'tf' true/false auto, 'text' typed auto, 'open' reveal+self-grade */
+const QUESTIONS = [
+  // ---- Q1 a-e classification (multiple choice) ----
+  { id:'1a', type:'mc', num:'1a',
+    prompt:'Classify $y\' + 5y = e^{x}$ (type, order, linearity).',
+    options:['ODE, order 1, linear','ODE, order 1, nonlinear','PDE, order 1, linear','ODE, order 2, linear'],
+    answer:0,
+    hint:'One independent variable ($x$) means ODE. Highest derivative is $y\'$. Is $y$ (and its derivative) to the first power with coefficients in $x$ only?',
+    explain:'ODE (single independent variable $x$), order 1 (highest derivative $y\'$), linear ($y$ and $y\'$ appear to the first power; $e^x$ is just the forcing term).' },
+
+  { id:'1b', type:'mc', num:'1b',
+    prompt:'Classify $\\dfrac{dx}{dt} + \\dfrac{dy}{dt} = 2x + y$.',
+    options:['ODE, order 1, linear','ODE, order 2, nonlinear','PDE, order 1, linear','ODE, order 1, nonlinear'],
+    answer:0,
+    hint:'Both derivatives are with respect to the single variable $t$, so it is an ODE (a system in $x$ and $y$). Highest derivative order? Are the dependent variables linear?',
+    explain:'ODE (everything differentiated with respect to one variable $t$), order 1, linear. It is really a first-order linear system in the unknowns $x(t)$ and $y(t)$; all terms are first power.' },
+
+  { id:'1c', type:'mc', num:'1c',
+    prompt:'Classify $\\dfrac{\\partial^2 u}{\\partial x^2} + \\dfrac{\\partial^2 u}{\\partial y^2} = 0$ (Laplace\'s equation).',
+    options:['PDE, order 2, linear','PDE, order 2, nonlinear','ODE, order 2, linear','PDE, order 1, linear'],
+    answer:0,
+    hint:'Two independent variables ($x$ and $y$) with partial derivatives. Highest order? Does $u$ appear linearly?',
+    explain:'PDE (two independent variables, partial derivatives), order 2 (second partials), linear ($u$ appears to the first power with constant coefficients).' },
+
+  { id:'1d', type:'mc', num:'1d',
+    prompt:'Classify $\\ddot{s} + \\sin s = 0$ (the pendulum equation).',
+    options:['ODE, order 2, nonlinear','ODE, order 2, linear','ODE, order 1, nonlinear','PDE, order 2, nonlinear'],
+    answer:0,
+    hint:'$\\ddot{s}$ is the second time derivative. The key question: is $s$ trapped inside a nonlinear function anywhere?',
+    explain:'ODE, order 2 (the double-dot), nonlinear. The term $\\sin s$ puts the dependent variable inside a nonlinear function, which breaks linearity.' },
+
+  { id:'1e', type:'mc', num:'1e',
+    prompt:'Classify $\\dfrac{d^4 y}{dx^4} + y^2 = 0$.',
+    options:['ODE, order 4, nonlinear','ODE, order 4, linear','ODE, order 2, nonlinear','PDE, order 4, nonlinear'],
+    answer:0,
+    hint:'Fourth derivative sets the order. The $y^2$ term is the deciding factor for linearity.',
+    explain:'ODE, order 4 (the fourth derivative), nonlinear because of the $y^2$ term (dependent variable to the second power).' },
+
+  // ---- Q2 ----
+  { id:'2', type:'mc', num:'2',
+    prompt:'Is $\\phi(x) = e^{3x}$ a solution to the DE $y\'\' - 9y = 0$?',
+    options:['Yes','No'],
+    answer:0,
+    hint:'Compute $\\phi\'\' = 9e^{3x}$, then substitute into $y\'\' - 9y$.',
+    explain:'Yes. $\\phi\'\' = 9e^{3x}$, so $\\phi\'\' - 9\\phi = 9e^{3x} - 9e^{3x} = 0$. It satisfies the equation for all $x$.' },
+
+  // ---- Q3 ----
+  { id:'3', type:'mc', num:'3',
+    prompt:'Is $\\phi(x) = \\ln x$ a solution to the DE $x\\dfrac{dy}{dx} = -1$?',
+    options:['Yes','No'],
+    answer:1,
+    hint:'$\\phi\' = 1/x$, so $x\\phi\' = x\\cdot\\frac{1}{x}$. Does that equal $-1$?',
+    explain:'No. $\\phi\' = 1/x$, so $x\\phi\' = x\\cdot\\tfrac{1}{x} = +1 \\neq -1$. It would solve $x\\,y\' = +1$, not $-1$. (The function $y = -\\ln x$ would work.)' },
+
+  // ---- Q4 ----
+  { id:'4', type:'text', num:'4',
+    prompt:'Find the value(s) of $m$ so that $y = e^{mx}$ solves $2y\'\' + 7y\' - 4y = 0$. (Enter both values.)',
+    accept:['1/2,-4','-4,1/2','1/2 and -4','-4 and 1/2','0.5,-4','-4,0.5','m=1/2,m=-4','1/2,-4 '],
+    hint:'Substitute $y=e^{mx}$. Each derivative pulls down a factor of $m$, and $e^{mx}$ cancels, leaving the characteristic (auxiliary) equation $2m^2 + 7m - 4 = 0$.',
+    explain:'Substituting $y=e^{mx}$ gives $e^{mx}(2m^2 + 7m - 4) = 0$. Since $e^{mx}\\neq0$, solve $2m^2+7m-4=0$. Factoring: $(2m-1)(m+4)=0$, so $m = \\tfrac{1}{2}$ or $m = -4$.' },
+
+  // ---- Q5 ----
+  { id:'5', type:'mc', num:'5',
+    prompt:'Is the family $P = \\dfrac{ce^{t}}{1+ce^{t}}$ a solution of the logistic DE $P\' = P(1-P)$?',
+    options:['Yes','No'],
+    answer:0,
+    hint:'Differentiate $P$ with the quotient rule. Separately compute $P(1-P)$ and note that $1-P = \\dfrac{1}{1+ce^t}$. Compare.',
+    explain:'Yes. By the quotient rule $P\' = \\dfrac{ce^{t}}{(1+ce^{t})^{2}}$. And $1-P = \\dfrac{1}{1+ce^{t}}$, so $P(1-P) = \\dfrac{ce^{t}}{1+ce^{t}}\\cdot\\dfrac{1}{1+ce^{t}} = \\dfrac{ce^{t}}{(1+ce^{t})^{2}}$. The two match, so it is a solution for every constant $c$.' },
+
+  // ---- Q6 ----
+  { id:'6', type:'open', num:'6',
+    prompt:'Create a differential equation that <em>should</em> have only the trivial solution $y\\equiv0$. Why does it?',
+    hint:'"Trivial solution" means $y=0$. Think of an algebraic-style equation where the only function satisfying it is zero, e.g. forcing $(y\')^2 + y^2$ to equal 0.',
+    explain:'Any equation forcing a sum of squares (or absolute values) to vanish works, because a sum of nonnegative terms is zero only when each term is zero. Example: $$(y\')^{2} + y^{2} = 0.$$ Since both terms are $\\geq 0$ for real functions, the equation forces $y\'=0$ <em>and</em> $y=0$ simultaneously, leaving only $y\\equiv0$. (Other valid answers exist, e.g. $|y\'| + |y| = 0$.) Note this is different from a linear homogeneous equation like $y\'+y=0$, which has the trivial solution but also infinitely many nontrivial ones.' },
+
+  // ---- Q7 ----
+  { id:'7', type:'open', num:'7',
+    prompt:'Let $\\phi(x) = c_1\\cosh(kx) + c_2\\sinh(kx)$ for constants $c_1,c_2,k\\in\\mathbb{R}$. <span class="sub">(a) Calculate $\\phi\'\'(x)$. (b) Create a differential equation from this knowledge.</span>',
+    hint:'Recall $\\frac{d}{dx}\\cosh(kx)=k\\sinh(kx)$ and $\\frac{d}{dx}\\sinh(kx)=k\\cosh(kx)$. Differentiate twice and compare $\\phi\'\'$ to $\\phi$ itself.',
+    explain:'<b>(a)</b> $\\phi\' = c_1 k\\sinh(kx) + c_2 k\\cosh(kx)$, then $\\phi\'\' = c_1 k^2\\cosh(kx) + c_2 k^2\\sinh(kx) = k^2\\big(c_1\\cosh(kx)+c_2\\sinh(kx)\\big)$.<br><br><b>(b)</b> Notice $\\phi\'\' = k^2\\phi$. So the differential equation is $$y\'\' - k^{2}y = 0.$$ The given family is its general solution. (Compare with $y\'\'+k^2 y = 0$, whose solutions are $\\cos,\\sin$ instead of $\\cosh,\\sinh$.)' },
+
+  // ---- Q8 ----
+  { id:'8', type:'open', num:'8',
+    prompt:'Prove or disprove: the IVP $y\' = \\sin(y) + x$, $\\;y(x_0)=y_0$ has a unique solution.',
+    hint:'Apply the existence-uniqueness theorem: check whether $f(x,y)=\\sin(y)+x$ and $\\partial f/\\partial y$ are continuous near $(x_0,y_0)$.',
+    explain:'<b>Unique solution exists</b> (for any $(x_0,y_0)$). Here $f(x,y)=\\sin(y)+x$ is continuous on the whole plane, and $\\dfrac{\\partial f}{\\partial y}=\\cos(y)$ is also continuous everywhere. Both hypotheses of the existence-and-uniqueness theorem hold on any rectangle around $(x_0,y_0)$, so a unique solution exists on some interval about $x_0$.' },
+
+  // ---- Q9 ----
+  { id:'9', type:'open', num:'9',
+    prompt:'Let $c\\in\\mathbb{R}$ be an arbitrary constant. Prove or disprove: the IVP $y\' = \\dfrac{x}{y^{2}+c}$, $\\;y(x_0)=y_0$ has a unique solution.',
+    hint:'$f(x,y)=\\dfrac{x}{y^2+c}$. Continuity fails wherever $y^2+c=0$. The answer depends on the sign of $c$ and on where $(x_0,y_0)$ sits.',
+    explain:'<b>It depends on $c$ and the initial point.</b> Let $f(x,y)=\\dfrac{x}{y^2+c}$, with $\\dfrac{\\partial f}{\\partial y}=\\dfrac{-2xy}{(y^2+c)^2}$. Both are continuous except where $y^2+c=0$.<br><br>'+
+            '&bull; <b>If $c>0$:</b> $y^2+c>0$ always, so $f$ and $f_y$ are continuous everywhere &rArr; a unique solution exists for every $(x_0,y_0)$.<br>'+
+            '&bull; <b>If $c=0$:</b> fails on the line $y=0$. Unique solution guaranteed only when $y_0\\neq0$.<br>'+
+            '&bull; <b>If $c<0$:</b> fails where $y=\\pm\\sqrt{-c}$. Unique solution guaranteed only when $y_0\\neq\\pm\\sqrt{-c}$.<br><br>'+
+            'So the statement is <b>not</b> universally true: it holds wherever the initial point avoids the bad set $y^2+c=0$, and the theorem gives no guarantee on that set.' }
+];
+
+/* ============================ ENGINE ============================ */
+const quizEl = document.getElementById('quiz');
+const STORE = 'map2302q1_v1';
+let state = loadState();
+function loadState(){ try{ return JSON.parse(localStorage.getItem(STORE)) || {}; }catch(e){ return {}; } }
+function saveState(){ try{ localStorage.setItem(STORE, JSON.stringify(state)); }catch(e){} }
+
+QUESTIONS.forEach(q=>{
+  const card=document.createElement('section');
+  card.className='q'; card.id='card-'+q.id;
+  let inputHTML='';
+  if(q.type==='tf'){
+    inputHTML=`<div class="tf-group" data-input="${q.id}">
+      <button class="tf-btn" data-val="true">True</button>
+      <button class="tf-btn" data-val="false">False</button></div>`;
+  } else if(q.type==='mc'){
+    inputHTML=`<div class="mc-group" data-input="${q.id}">`+
+      q.options.map((o,i)=>`<button class="mc-btn" data-val="${i}">${o}</button>`).join('')+`</div>`;
+  } else if(q.type==='text'){
+    inputHTML=`<p class="field-label">Your answer</p>
+      <input type="text" data-input="${q.id}" placeholder="Type your answer…" autocomplete="off" spellcheck="false">`;
+  } else {
+    inputHTML=`<p class="field-label">Your work / answer (optional scratch space)</p>
+      <textarea data-input="${q.id}" placeholder="Work it out here, then reveal the answer to check…"></textarea>`;
+  }
+  const autoCheck=(q.type==='tf'||q.type==='text'||q.type==='mc');
+  card.innerHTML=`
+    <div class="q-head">
+      <div class="q-num">${q.num}</div>
+      <div style="flex:1"><div class="q-prompt">${q.prompt}</div></div>
+    </div>
+    <div class="q-body">
+      ${inputHTML}
+      <div class="q-actions">
+        ${autoCheck?`<button class="act act-check" data-act="check">Check answer</button>`:''}
+        <button class="act act-hint" data-act="hint">Hint</button>
+        <button class="act act-show" data-act="show">Show answer</button>
+      </div>
+      <div class="panel panel-result" data-panel="result"></div>
+      <div class="panel panel-hint" data-panel="hint"><h4>Hint</h4><div>${q.hint}</div></div>
+      <div class="panel panel-ans" data-panel="ans">
+        <h4>Worked answer</h4><div>${q.explain}</div>
+        ${!autoCheck?`<div class="selfgrade"><p class="field-label">Did you get it right?</p>
+            <button class="sg-btn sg-got" data-sg="1">I got it</button>
+            <button class="sg-btn sg-miss" data-sg="0">Missed it</button></div>`:''}
+      </div>
+    </div>`;
+  quizEl.appendChild(card);
+
+  const saved=state[q.id];
+  if(saved){
+    if(q.type==='tf'&&saved.input!=null) card.querySelectorAll('.tf-btn').forEach(b=>{if(b.dataset.val===String(saved.input))b.classList.add('sel');});
+    if(q.type==='mc'&&saved.input!=null) card.querySelectorAll('.mc-btn').forEach(b=>{if(b.dataset.val===String(saved.input))b.classList.add('sel');});
+    if((q.type==='text'||q.type==='open')&&saved.input!=null){const f=card.querySelector('[data-input]');if(f)f.value=saved.input;}
+    if(saved.graded!=null) applyResult(card,q,saved.graded,true);
+  }
+});
+
+quizEl.addEventListener('click',e=>{
+  const card=e.target.closest('.q'); if(!card) return;
+  const qid=card.id.replace('card-',''); const q=QUESTIONS.find(x=>x.id===qid);
+  if(e.target.classList.contains('tf-btn')){
+    card.querySelectorAll('.tf-btn').forEach(b=>b.classList.remove('sel'));
+    e.target.classList.add('sel'); stash(qid,{input:e.target.dataset.val==='true'});
+  }
+  if(e.target.classList.contains('mc-btn')){
+    card.querySelectorAll('.mc-btn').forEach(b=>b.classList.remove('sel'));
+    e.target.classList.add('sel'); stash(qid,{input:parseInt(e.target.dataset.val,10)});
+  }
+  const act=e.target.dataset.act;
+  if(act==='hint') card.querySelector('[data-panel="hint"]').classList.toggle('show');
+  if(act==='show'){ card.querySelector('[data-panel="ans"]').classList.add('show'); e.target.disabled=true; }
+  if(act==='check') doCheck(card,q);
+  if(e.target.dataset.sg!=null){
+    const got=e.target.dataset.sg==='1';
+    card.querySelectorAll('.sg-btn').forEach(b=>b.classList.remove('sel'));
+    e.target.classList.add('sel'); applyResult(card,q,got,false);
+  }
+});
+quizEl.addEventListener('input',e=>{
+  if(e.target.matches('[data-input]')){const card=e.target.closest('.q');stash(card.id.replace('card-',''),{input:e.target.value});}
+});
+
+function stash(qid,obj){ state[qid]=Object.assign({},state[qid],obj); saveState(); }
+function showPanel(card,name){ card.querySelector(`[data-panel="${name}"]`).classList.add('show'); }
+function normalize(s){ return (s||'').toLowerCase().replace(/\s+/g,'').replace(/\*/g,'').replace(/−/g,'-'); }
+
+function doCheck(card,q){
+  let correct=false;
+  if(q.type==='tf'){
+    const sel=card.querySelector('.tf-btn.sel'); if(!sel){flash(card,'Select True or False first.');return;}
+    correct=(sel.dataset.val==='true')===q.answer;
+  } else if(q.type==='mc'){
+    const sel=card.querySelector('.mc-btn.sel'); if(!sel){flash(card,'Select an option first.');return;}
+    correct=parseInt(sel.dataset.val,10)===q.answer;
+  } else if(q.type==='text'){
+    const val=card.querySelector('[data-input]').value; if(!val.trim()){flash(card,'Type an answer first.');return;}
+    const n=normalize(val); correct=q.accept.some(a=>{const na=normalize(a);return n===na||n.includes(na)||na.includes(n);});
+  }
+  applyResult(card,q,correct,false);
+  showPanel(card,'ans');
+  const sb=card.querySelector('[data-act="show"]'); if(sb) sb.disabled=true;
+}
+function applyResult(card,q,correct,silent){
+  const p=card.querySelector('[data-panel="result"]');
+  card.classList.remove('correct','incorrect'); card.classList.add(correct?'correct':'incorrect');
+  p.innerHTML=correct?`<span class="result-correct">&#10003; Correct.</span>`:`<span class="result-incorrect">&#10007; Not quite — review the worked answer below.</span>`;
+  p.classList.add('show'); stash(q.id,{graded:correct}); updateScore();
+}
+function flash(card,msg){const p=card.querySelector('[data-panel="result"]');p.innerHTML=`<span style="color:var(--warn)">${msg}</span>`;p.classList.add('show');}
+function updateScore(){
+  const total=QUESTIONS.length; let graded=0,correct=0;
+  QUESTIONS.forEach(q=>{const s=state[q.id];if(s&&s.graded!=null){graded++;if(s.graded)correct++;}});
+  document.getElementById('st-total').textContent=total;
+  document.getElementById('st-graded').textContent=graded;
+  document.getElementById('st-correct').textContent=correct;
+  document.getElementById('st-pct').textContent=(graded?Math.round(correct/graded*100):0)+'%';
+  document.getElementById('score-fill').style.width=(graded/total*100)+'%';
+}
+document.getElementById('reset').addEventListener('click',()=>{if(!confirm('Clear all answers and progress?'))return;state={};saveState();location.reload();});
+updateScore();
+window.addEventListener('load',()=>{ if(window.renderMathInElement){renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false});}});
+</script>
+</body>
+</html>

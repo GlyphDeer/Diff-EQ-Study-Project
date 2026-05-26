@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 2 Recap — MAP2302</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="home" href="../index.html">← Study Hub</a>
+  <span class="crumbs">Chapter 2 · First-Order Equations</span>
+</nav>
+
+<div class="wrap narrow prose">
+
+  <header class="masthead">
+    <p class="eyebrow">Recap · Sections 2.1, 2.3–2.6</p>
+    <h1 class="title">Chapter 2<br>First-Order<br>Equations</h1>
+    <p class="subtitle">A toolbox of solution methods: identify the form first, then apply the matching technique.</p>
+  </header>
+
+  <div class="toc"><div class="toc-scroll">
+    <a href="#id">Method picker</a>
+    <a href="#s21">2.1 Falling body</a>
+    <a href="#s22">2.2 Separable</a>
+    <a href="#s23">2.3 Linear</a>
+    <a href="#s24">2.4 Exact</a>
+    <a href="#s25">2.5 Integrating factors</a>
+    <a href="#s26">2.6 Substitutions</a>
+  </div></div>
+
+  <div class="box method" id="id">
+    <h4>How to pick a method</h4>
+    <ol>
+      <li>Can you separate it as $\frac{dy}{dx} = g(x)h(y)$? → <b>Separable</b> (§2.2, below).</li>
+      <li>Is it linear: $\frac{dy}{dx} + P(x)y = Q(x)$? → <b>Integrating factor</b> $\mu = e^{\int P\,dx}$ (§2.3).</li>
+      <li>Written as $M\,dx + N\,dy = 0$ with $\partial M/\partial y = \partial N/\partial x$? → <b>Exact</b> (§2.4).</li>
+      <li>Almost exact? → find a <b>special integrating factor</b> (§2.5).</li>
+      <li>None of the above? → try a <b>substitution</b>: homogeneous, $G(ax+by)$, or Bernoulli (§2.6).</li>
+    </ol>
+    <p>Most exam mistakes are misidentification, not algebra. Spend the first ten seconds naming the form.</p>
+  </div>
+
+  <!-- ============ 2.1 ============ -->
+  <h2 id="s21">2.1 Introduction: Motion of a Falling Body</h2>
+  <p>This section motivates the whole chapter with one model. Newton's second law on a falling object subject to gravity and linear air resistance gives</p>
+  <div class="formula">$$m\frac{dv}{dt} = mg - bv, \qquad b > 0.$$</div>
+  <p>It is simultaneously <b>separable</b> and <b>linear</b>, so it previews both of the main techniques. The key qualitative idea introduced here is <b>terminal velocity</b>: as $t\to\infty$ the exponential transient dies out and $v \to mg/b$, the equilibrium where acceleration is zero. This exact model is Quiz 2, Problem 6.</p>
+
+  <!-- ============ 2.2 ============ -->
+  <h2 id="s22">2.2 Separable Equations</h2>
+  <p class="lead">The first real technique: if the variables can be pulled to opposite sides, you just integrate.</p>
+
+  <p>A first-order equation is <b>separable</b> if it can be written so that all the $y$-dependence sits with $dy$ and all the $x$-dependence sits with $dx$:</p>
+  <div class="formula">$$\frac{dy}{dx} = g(x)\,h(y) \quad\Longrightarrow\quad \frac{dy}{h(y)} = g(x)\,dx.$$</div>
+
+  <div class="box method">
+    <h4>Procedure</h4>
+    <ol>
+      <li>Write $\dfrac{dy}{dx}$ as a product of a function of $x$ alone and a function of $y$ alone. If you cannot, it is not separable.</li>
+      <li>Divide so each variable is with its own differential: $\dfrac{1}{h(y)}\,dy = g(x)\,dx$.</li>
+      <li>Integrate both sides. One constant of integration is enough (combine them on one side).</li>
+      <li>Solve for $y$ if possible (explicit), or leave the relation as an implicit solution.</li>
+      <li>Apply the initial condition to fix the constant.</li>
+    </ol>
+  </div>
+
+  <div class="box pitfall">
+    <h4>Watch for</h4>
+    <ul>
+      <li><b>Lost solutions.</b> Dividing by $h(y)$ assumes $h(y)\neq0$. Any constant $y=r$ with $h(r)=0$ is also a solution (an equilibrium) and must be checked separately — it can be missed entirely by the integration.</li>
+      <li>A sum like $\dfrac{dy}{dx} = x + y$ is <b>not</b> separable; you cannot factor it into $g(x)h(y)$. (It is linear, though — use §2.3.)</li>
+      <li>Keep the absolute value when integrating $\int \frac{dy}{y} = \ln|y|$, then resolve the sign with the initial condition.</li>
+    </ul>
+  </div>
+
+  <div class="box example">
+    <h4>Pattern: exponential growth/decay</h4>
+    <p>$\dfrac{dy}{dx} = ky$ separates to $\dfrac{dy}{y} = k\,dx$, giving $\ln|y| = kx + C$ and $y = Ae^{kx}$. This is the backbone of the interest, radioactive-decay, and Newton's-law-of-cooling models. The falling-body equation of §2.1 is separable by exactly this route.</p>
+  </div>
+
+  <!-- ============ 2.3 ============ -->
+  <h2 id="s23">2.3 Linear Equations</h2>
+  <p class="lead">The single most important first-order technique. Learn it cold.</p>
+
+  <p>A first-order linear equation can always be put in <b>standard form</b>:</p>
+  <div class="formula">$$\frac{dy}{dx} + P(x)\,y = Q(x).$$</div>
+
+  <div class="box method">
+    <h4>Integrating-factor procedure</h4>
+    <ol>
+      <li>Put the equation in standard form (coefficient of $y'$ must be 1). Identify $P(x)$ and $Q(x)$.</li>
+      <li>Compute the integrating factor $\;\mu(x) = e^{\int P(x)\,dx}$. (No constant needed — see note.)</li>
+      <li>Multiply through by $\mu$. The left side collapses to a product derivative: $\dfrac{d}{dx}\big[\mu(x)\,y\big] = \mu(x)\,Q(x)$.</li>
+      <li>Integrate both sides: $\mu(x)\,y = \displaystyle\int \mu(x)\,Q(x)\,dx + C$.</li>
+      <li>Solve for $y$ and apply any initial condition to find $C$.</li>
+    </ol>
+  </div>
+
+  <p><b>Why it works:</b> $\mu$ is built precisely so that $\mu' = \mu P$. Then the product rule gives $(\mu y)' = \mu y' + \mu' y = \mu y' + \mu P y = \mu(y' + Py) = \mu Q$, which is the whole point — the left side becomes an exact derivative you can integrate.</p>
+
+  <div class="box pitfall">
+    <h4>Common errors</h4>
+    <ul>
+      <li>Forgetting to divide so the leading coefficient is 1 before reading off $P$.</li>
+      <li>Multiplying only one side by $\mu$.</li>
+      <li>Dropping the constant of integration, or adding it on the wrong side.</li>
+      <li>The constant inside $\mu = e^{\int P\,dx + c}$ is harmless — $e^c$ factors out and cancels. Conventionally take it to be zero. (Quiz 2, Problem 4 is exactly this point.)</li>
+    </ul>
+  </div>
+
+  <div class="box example">
+    <h4>Pattern: when $Q$ has no elementary antiderivative</h4>
+    <p>For $y' - 2xy = 1$, the factor is $\mu = e^{-x^2}$ and you reach $e^{-x^2}y = \int e^{-x^2}dx + C$. That integral is non-elementary, so the answer is written with the error function $\operatorname{erf}(x) = \frac{2}{\sqrt\pi}\int_0^x e^{-t^2}dt$. Don't panic when this happens — leaving the answer in terms of $\operatorname{erf}$ (or a definite integral) is the correct, complete answer. (Quiz 2, Problem 9.)</p>
+  </div>
+
+  <!-- ============ 2.4 ============ -->
+  <h2 id="s24">2.4 Exact Equations</h2>
+  <p>Write the equation in differential form:</p>
+  <div class="formula">$$M(x,y)\,dx + N(x,y)\,dy = 0.$$</div>
+  <p>It is <b>exact</b> when its left side is the total differential $dF$ of some potential function $F(x,y)$. The solutions are then the level curves $F(x,y) = C$.</p>
+
+  <div class="box method">
+    <h4>Test and solve</h4>
+    <ol>
+      <li><b>Test:</b> the equation is exact $\iff \dfrac{\partial M}{\partial y} = \dfrac{\partial N}{\partial x}$ (on a simply connected region).</li>
+      <li>Integrate $M$ with respect to $x$: $F = \displaystyle\int M\,dx + g(y)$, where $g(y)$ is an unknown "constant" of integration that may depend on $y$.</li>
+      <li>Differentiate that $F$ with respect to $y$, set it equal to $N$, and solve for $g'(y)$.</li>
+      <li>Integrate $g'(y)$ to get $g(y)$. Assemble $F$.</li>
+      <li>The implicit solution is $F(x,y) = C$.</li>
+    </ol>
+    <p>(You can equally start by integrating $N$ with respect to $y$; pick whichever is easier.)</p>
+  </div>
+
+  <div class="box pitfall">
+    <h4>Watch for</h4>
+    <p>Always run the equality-of-mixed-partials test <em>before</em> committing. If $M_y \neq N_x$ the method does not apply as-is — you need §2.5. And the function added during the first integration depends on the <em>other</em> variable (a $g(y)$, not a bare constant); that is where the new information comes from.</p>
+  </div>
+
+  <!-- ============ 2.5 ============ -->
+  <h2 id="s25">2.5 Special Integrating Factors</h2>
+  <p>When $M\,dx + N\,dy = 0$ fails the exactness test, you may be able to multiply by a factor $\mu$ that makes it exact. In general $\mu$ depends on both variables and is hard to find, but two special cases are tractable and worth memorizing.</p>
+
+  <table>
+    <tr><th>If this quantity depends on…</th><th>…only this variable</th><th>Integrating factor</th></tr>
+    <tr>
+      <td>$\dfrac{M_y - N_x}{N}$</td>
+      <td>$x$ alone</td>
+      <td>$\mu(x) = \exp\!\left(\displaystyle\int \frac{M_y - N_x}{N}\,dx\right)$</td>
+    </tr>
+    <tr>
+      <td>$\dfrac{N_x - M_y}{M}$</td>
+      <td>$y$ alone</td>
+      <td>$\mu(y) = \exp\!\left(\displaystyle\int \frac{N_x - M_y}{M}\,dy\right)$</td>
+    </tr>
+  </table>
+
+  <div class="box method">
+    <h4>Procedure</h4>
+    <ol>
+      <li>Confirm the equation is not already exact.</li>
+      <li>Compute $\dfrac{M_y - N_x}{N}$. If it is a function of $x$ only, use the $x$-factor.</li>
+      <li>Otherwise compute $\dfrac{N_x - M_y}{M}$. If it is a function of $y$ only, use the $y$-factor.</li>
+      <li>Multiply the whole equation by $\mu$ and solve the now-exact equation by §2.4.</li>
+    </ol>
+    <p>Note the sign flip and the denominator swap ($N$ for the $x$-case, $M$ for the $y$-case). Mixing these up is the usual error.</p>
+  </div>
+
+  <p>This section also re-derives the §2.3 linear integrating factor as a special case: a linear equation in differential form has $\dfrac{M_y - N_x}{N} = P(x)$, recovering $\mu = e^{\int P\,dx}$.</p>
+
+  <!-- ============ 2.6 ============ -->
+  <h2 id="s26">2.6 Substitutions and Transformations</h2>
+  <p>When none of the standard forms fit, a change of variable can convert the equation into one that does. Three named substitutions cover most cases.</p>
+
+  <h3>1 · Homogeneous equations</h3>
+  <p>If $\dfrac{dy}{dx} = f(x,y)$ where $f$ depends only on the ratio $y/x$ (equivalently $M,N$ are homogeneous of the same degree), substitute</p>
+  <div class="formula">$$v = \frac{y}{x}, \qquad y = vx, \qquad \frac{dy}{dx} = v + x\frac{dv}{dx}.$$</div>
+  <p>The result is always <b>separable</b> in $v$ and $x$. Solve, then back-substitute $v = y/x$.</p>
+
+  <h3>2 · Equations of the form $\frac{dy}{dx} = G(ax + by)$</h3>
+  <p>Substitute $z = ax + by$. Then $\dfrac{dz}{dx} = a + b\dfrac{dy}{dx} = a + bG(z)$, which is separable in $z$ and $x$.</p>
+
+  <h3>3 · Bernoulli equations</h3>
+  <p>An equation of the form</p>
+  <div class="formula">$$\frac{dy}{dx} + P(x)\,y = Q(x)\,y^{n}, \qquad n \neq 0, 1$$</div>
+  <p>becomes <b>linear</b> under the substitution $v = y^{1-n}$. Then $\dfrac{dv}{dx} = (1-n)y^{-n}\dfrac{dy}{dx}$, and dividing the original by $y^n$ and substituting gives</p>
+  <div class="formula">$$\frac{dv}{dx} + (1-n)P(x)\,v = (1-n)Q(x),$$</div>
+  <p>which you solve by the §2.3 integrating factor, then back-substitute $v = y^{1-n}$.</p>
+
+  <div class="box pitfall">
+    <h4>Watch for</h4>
+    <ul>
+      <li>$n = 0$ or $n = 1$ are <em>not</em> Bernoulli — those are already linear or separable. The substitution is only needed for other powers.</li>
+      <li>For homogeneous equations, confirm $f$ truly reduces to a function of $y/x$ before substituting; a stray additive $x$ or constant breaks it (try the $G(ax+by)$ form instead).</li>
+      <li>Always back-substitute to return to the original variable. A common slip is leaving the answer in $v$.</li>
+    </ul>
+  </div>
+
+  <h2>Quick recall checklist</h2>
+  <ul>
+    <li>Name the form first: separable, linear, exact, almost-exact, or substitution-needed.</li>
+    <li>Linear: standard form → $\mu = e^{\int P\,dx}$ → $(\mu y)' = \mu Q$ → integrate.</li>
+    <li>Exact: test $M_y = N_x$ → integrate $M$ in $x$ → fix $g(y)$ via $N$.</li>
+    <li>Special factor: check $\frac{M_y - N_x}{N}$ ($x$-only) or $\frac{N_x - M_y}{M}$ ($y$-only).</li>
+    <li>Substitutions: $v=y/x$ (homogeneous), $z=ax+by$, $v=y^{1-n}$ (Bernoulli).</li>
+    <li>Always back-substitute and apply initial conditions last.</li>
+  </ul>
+
+  <footer>
+    Chapter 2 recap · original summary, not textbook text<br>
+    <a href="../index.html">← back to Study Hub</a>
+  </footer>
+
+</div>
+
+<script>
+window.addEventListener('load',()=>{
+  if(window.renderMathInElement){
+    renderMathInElement(document.body,{
+      delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+      throwOnError:false
+    });
+  }
+});
+</script>
+</body>
+</html>

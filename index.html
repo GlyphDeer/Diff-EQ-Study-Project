@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAP2302 — Study Hub</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Differential Equations · MAP2302</p>
+    <h1 class="title">Study&nbsp;Hub</h1>
+    <p class="subtitle">Chapter recaps, quizzes, and exam reviews — all in one place.</p>
+    <div class="meta-row">
+      <span><i class="dot"></i> <span id="count-chapters">0</span> chapters</span>
+      <span><i class="dot"></i> <span id="count-quizzes">0</span> quizzes</span>
+      <span><i class="dot"></i> <span id="count-reviews">0</span> reviews</span>
+      <span><i class="dot"></i> Nagle, Saff &amp; Snider, 9th ed.</span>
+    </div>
+  </header>
+
+  <main id="dashboard"></main>
+
+  <footer>
+    MAP2302 study hub · modular &amp; self-hosted<br>
+    Add new material by editing <span class="kbd">data/content.js</span><br>
+    Recaps are original summaries; they do not reproduce textbook text.
+  </footer>
+</div>
+
+<script src="data/content.js"></script>
+<script>
+const dash = document.getElementById('dashboard');
+
+function makeCard(item){
+  const soon = item.status === 'soon';
+  const a = document.createElement('a');
+  a.className = 'card' + (soon ? ' soon' : '');
+  a.href = soon ? '#' : item.href;
+  a.innerHTML = `
+    <span class="arrow">→</span>
+    <div class="ctype">${item.ctype}</div>
+    <div class="ctitle">${item.title}</div>
+    <div class="cdesc">${item.desc}</div>
+    ${item.tag ? `<span class="ctag">${item.tag}</span>` : ''}
+  `;
+  return a;
+}
+
+function renderSection(label, items, ctype){
+  const wrapper = document.createElement('div');
+  const head = document.createElement('div');
+  head.className = 'section-label';
+  head.textContent = label;
+  wrapper.appendChild(head);
+
+  if(!items || items.length === 0){
+    const e = document.createElement('div');
+    e.className = 'empty';
+    e.textContent = 'Nothing here yet — add an entry to data/content.js.';
+    wrapper.appendChild(e);
+  } else {
+    const grid = document.createElement('div');
+    grid.className = 'card-grid';
+    items.forEach(it => grid.appendChild(makeCard({...it, ctype})));
+    wrapper.appendChild(grid);
+  }
+  dash.appendChild(wrapper);
+}
+
+const C = window.SITE_CONTENT || {chapters:[],quizzes:[],reviews:[]};
+renderSection('Chapter Recaps', C.chapters, 'Recap');
+renderSection('Quizzes', C.quizzes, 'Quiz');
+renderSection('Test Reviews', C.reviews, 'Review');
+
+// counts (only "ready" items)
+const ready = arr => (arr||[]).filter(x=>x.status!=='soon').length;
+document.getElementById('count-chapters').textContent = ready(C.chapters);
+document.getElementById('count-quizzes').textContent  = ready(C.quizzes);
+document.getElementById('count-reviews').textContent  = ready(C.reviews);
+</script>
+</body>
+</html>
